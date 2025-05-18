@@ -1,0 +1,5 @@
+Django>=4.2,<5.0
+psycopg2-binary>=2.9        # драйвер для PostgreSQL
+requests>=2.28             # для HTTP-запитів під час скрапінгу
+beautifulsoup4>=4.12       # для парсингу HTML
+gunicorn>=20.1             # веб-сервер (для продакшн, опційно)

@@ -1,0 +1,32 @@
+{% extends 'quotes_app/base.html' %}
+
+{% block title %}Цитати за тегом: {{ tag }}{% endblock %}
+
+{% block content %}
+<h1>Цитати за тегом: <span class="text-primary">#{{ tag }}</span></h1>
+
+{% if quotes %}
+    {% for quote in quotes %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <blockquote class="blockquote">
+                    <p>{{ quote.quote }}</p>
+                    <footer class="blockquote-footer">
+                        <a href="{% url 'author_detail' quote.author.pk %}">{{ quote.author.full_name }}</a>
+                    </footer>
+                </blockquote>
+                <div>
+                    Теги:
+                    {% for t in quote.tags.all %}
+                        <a href="{% url 'quotes_by_tag' t.name %}" class="badge bg-secondary text-decoration-none">{{ t.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Цитат з тегом <strong>#{{ tag }}</strong> не знайдено.</p>
+{% endif %}
+
+<a href="{% url 'index' %}" class="btn btn-secondary mt-3">← Назад</a>
+{% endblock %}

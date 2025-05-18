@@ -1,0 +1,27 @@
+{% extends 'quotes_app/base.html' %}
+
+{% block title %}Цитата{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <blockquote class="blockquote">
+            <p>{{ quote.quote }}</p>
+            <footer class="blockquote-footer">
+                Автор: <a href="{% url 'author_detail' quote.author.pk %}">{{ quote.author.full_name }}</a>
+            </footer>
+        </blockquote>
+
+        <div>
+            Теги:
+            {% for tag in quote.tags.all %}
+                <a href="{% url 'quotes_by_tag' tag.name %}" class="badge bg-secondary text-decoration-none">{{ tag.name }}</a>
+            {% empty %}
+                <span class="text-muted">немає тегів</span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<a href="{% url 'index' %}" class="btn btn-secondary mt-3">Назад до списку цитат</a>
+{% endblock %}

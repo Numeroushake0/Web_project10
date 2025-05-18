@@ -1,0 +1,30 @@
+{% extends 'quotes_app/base.html' %}
+
+{% block title %}Автор: {{ author.full_name }}{% endblock %}
+
+{% block content %}
+<h1>{{ author.full_name }}</h1>
+
+<p><strong>Дата народження:</strong> {{ author.born_date }}</p>
+<p><strong>Місце народження:</strong> {{ author.born_location }}</p>
+
+{% if author.description %}
+    <h3>Про автора</h3>
+    <p>{{ author.description }}</p>
+{% endif %}
+
+<h3>Цитати автора</h3>
+{% if quotes %}
+    <ul class="list-group">
+        {% for quote in quotes %}
+            <li class="list-group-item">
+                <a href="{% url 'quote_detail' quote.pk %}">{{ quote.quote|truncatechars:100 }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Цитат цього автора ще немає.</p>
+{% endif %}
+
+<a href="{% url 'index' %}" class="btn btn-secondary mt-3">Назад до списку цитат</a>
+{% endblock %}
